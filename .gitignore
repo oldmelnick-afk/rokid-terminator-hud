@@ -1,0 +1,10 @@
+.gradle/
+.kotlin/
+build/
+app/build/
+local.properties
+.idea/
+*.iml
+releases/
+verification/*
+!verification/v0.7-no-face.png
