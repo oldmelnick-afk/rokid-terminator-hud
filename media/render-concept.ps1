@@ -4,25 +4,35 @@ $root = Split-Path -Parent $PSScriptRoot
 $photoPath = Join-Path $PSScriptRoot 'moscow-background-generated.png'
 $hudPath = Join-Path $root 'verification\v0.7-no-face.png'
 $outputPath = Join-Path $PSScriptRoot 'terminator-hud-moscow-concept.png'
+$previewPath = Join-Path $root 'screenshot-glasses-green-preview.png'
+$hudR = 96
+$hudG = 255
+$hudB = 145
 
 $photo = [System.Drawing.Bitmap]::FromFile($photoPath)
 $device = [System.Drawing.Bitmap]::FromFile($hudPath)
 $output = [System.Drawing.Bitmap]::new(480, 668)
 $overlay = [System.Drawing.Bitmap]::new(480, 640)
+$greenPreview = [System.Drawing.Bitmap]::new(480, 640)
 
 try {
     for ($y = 0; $y -lt 640; $y++) {
         for ($x = 0; $x -lt 480; $x++) {
+            $pixel = $device.GetPixel($x, $y)
+            $value = [Math]::Max($pixel.R, [Math]::Max($pixel.G, $pixel.B))
+            $greenPreview.SetPixel($x, $y,
+                [System.Drawing.Color]::FromArgb(
+                    [int]($hudR * $value / 255),
+                    [int]($hudG * $value / 255),
+                    [int]($hudB * $value / 255)))
             $excluded = (($y -ge 43 -and $y -le 68 -and $x -le 174) -or
                 ($y -ge 69 -and $y -le 102 -and $x -ge 70 -and $x -le 410) -or
                 ($y -ge 392 -and $y -le 607))
             if ($excluded) { continue }
-            $pixel = $device.GetPixel($x, $y)
-            $value = [Math]::Max($pixel.R, [Math]::Max($pixel.G, $pixel.B))
             if ($value -gt 9) {
                 $opacity = [Math]::Min(255, [int]($value * 0.88))
                 $overlay.SetPixel($x, $y,
-                    [System.Drawing.Color]::FromArgb($opacity, 255, 255, 255))
+                    [System.Drawing.Color]::FromArgb($opacity, $hudR, $hudG, $hudB))
             }
         }
     }
@@ -38,7 +48,6 @@ try {
         $veil.Dispose()
         $g.DrawImage($overlay, 0, 0)
 
-        $white = [System.Drawing.Color]::White
         function Draw-HudText([string]$text, [float]$x, [float]$baseline,
             [float]$size, [bool]$bold = $false, [int]$alpha = 230,
             [bool]$center = $false) {
@@ -48,7 +57,7 @@ try {
             $font = [System.Drawing.Font]::new('Consolas', $size, $style,
                 [System.Drawing.GraphicsUnit]::Pixel)
             $brush = [System.Drawing.SolidBrush]::new(
-                [System.Drawing.Color]::FromArgb($alpha, 255, 255, 255))
+                [System.Drawing.Color]::FromArgb($alpha, $hudR, $hudG, $hudB))
             try {
                 $measure = $g.MeasureString($text, $font)
                 if ($center) { $x -= $measure.Width / 2 }
@@ -61,7 +70,7 @@ try {
         function Draw-HudLine([float]$x1, [float]$y1,
             [float]$x2, [float]$y2, [int]$alpha, [float]$width) {
             $pen = [System.Drawing.Pen]::new(
-                [System.Drawing.Color]::FromArgb($alpha, 255, 255, 255), $width)
+                [System.Drawing.Color]::FromArgb($alpha, $hudR, $hudG, $hudB), $width)
             try { $g.DrawLine($pen, $x1, $y1, $x2, $y2) }
             finally { $pen.Dispose() }
         }
@@ -72,15 +81,15 @@ try {
 
         $x = 237.0; $y = 211.0; $r = 51.0
         $fill = [System.Drawing.SolidBrush]::new(
-            [System.Drawing.Color]::FromArgb(12, 255, 255, 255))
+            [System.Drawing.Color]::FromArgb(12, $hudR, $hudG, $hudB))
         $g.FillEllipse($fill, $x - $r, $y - $r, $r * 2, $r * 2)
         $fill.Dispose()
         $ring = [System.Drawing.Pen]::new(
-            [System.Drawing.Color]::FromArgb(118, 255, 255, 255), 2.5)
+            [System.Drawing.Color]::FromArgb(118, $hudR, $hudG, $hudB), 2.5)
         $g.DrawEllipse($ring, $x - $r, $y - $r, $r * 2, $r * 2)
         $ring.Dispose()
         $inner = [System.Drawing.Pen]::new(
-            [System.Drawing.Color]::FromArgb(78, 255, 255, 255), 1.8)
+            [System.Drawing.Color]::FromArgb(78, $hudR, $hudG, $hudB), 1.8)
         $g.DrawEllipse($inner, $x - $r * 0.7, $y - $r * 0.7,
             $r * 1.4, $r * 1.4)
         $inner.Dispose()
@@ -117,8 +126,11 @@ try {
     } finally { $g.Dispose() }
 
     $output.Save($outputPath, [System.Drawing.Imaging.ImageFormat]::Png)
+    $greenPreview.Save($previewPath, [System.Drawing.Imaging.ImageFormat]::Png)
     Write-Output $outputPath
+    Write-Output $previewPath
 } finally {
+    $greenPreview.Dispose()
     $overlay.Dispose()
     $output.Dispose()
     $device.Dispose()
