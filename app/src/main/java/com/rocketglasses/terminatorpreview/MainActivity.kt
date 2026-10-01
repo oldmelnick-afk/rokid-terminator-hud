@@ -341,7 +341,7 @@ class MainActivity : Activity() {
 
     private class PreviewHudView(context: Context) : View(context) {
         private val p = Paint(Paint.ANTI_ALIAS_FLAG)
-        private val hudGreen = Color.rgb(96, 255, 145)
+        private val white = Color.WHITE
         private var scanStartedAt = SystemClock.elapsedRealtime()
         private var lastFaceAt = 0L
         private var targetX = 240f
@@ -644,7 +644,7 @@ class MainActivity : Activity() {
         }
 
         private fun reticle(c: Canvas, x: Float, y: Float, r: Float) {
-            p.color = hudGreen
+            p.color = white
             p.alpha = 12
             p.style = Paint.Style.FILL
             c.drawCircle(x, y, r, p)
@@ -682,7 +682,7 @@ class MainActivity : Activity() {
                 center(c, directions[index], x + vx * 53f, y + vy * 53f + 4f,
                     11f, index % 2 == 0)
             }
-            p.color = hudGreen
+            p.color = white
             p.style = Paint.Style.STROKE
             p.alpha = 80
             p.strokeWidth = 1f
@@ -695,7 +695,7 @@ class MainActivity : Activity() {
             for (index in blips.indices) {
                 val pulse = ((elapsed / 100L + index * 12L) % 40L).toFloat() / 40f
                 if (pulse < 0.22f) {
-                    p.color = hudGreen
+                    p.color = white
                     p.alpha = (180f * (1f - pulse / 0.22f)).toInt()
                     p.style = Paint.Style.FILL
                     c.drawCircle(x + blips[index].first, y + blips[index].second, 3f, p)
@@ -708,7 +708,7 @@ class MainActivity : Activity() {
             c: Canvas, s: String, x: Float, y: Float, size: Float,
             isBold: Boolean = false, opacity: Int = 230
         ) {
-            p.color = hudGreen
+            p.color = white
             p.alpha = opacity
             p.style = Paint.Style.FILL
             p.typeface = if (isBold) bold else normal
@@ -726,7 +726,7 @@ class MainActivity : Activity() {
             c: Canvas, x1: Float, y1: Float, x2: Float, y2: Float,
             opacity: Int, thickness: Float
         ) {
-            p.color = hudGreen
+            p.color = white
             p.alpha = opacity
             p.style = Paint.Style.STROKE
             p.strokeWidth = thickness

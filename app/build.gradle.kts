@@ -14,8 +14,8 @@ android {
         applicationId = "com.rocketglasses.terminatorpreview"
         minSdk = 28
         targetSdk = 32
-        versionCode = 8
-        versionName = "0.8-green-hud"
+        versionCode = 7
+        versionName = "0.7-profile-deck"
         ndk {
             abiFilters += "arm64-v8a"
         }
