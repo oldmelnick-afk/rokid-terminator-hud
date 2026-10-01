@@ -1,6 +1,6 @@
 # Rokid Terminator HUD
 
-A fan-made sci-fi HUD for **Rokid Glasses**. It tracks a face with the glasses' camera, runs a short scan sequence, and draws a translucent reticle over the view. It is a playful visual demo, not a person-identification or safety tool.
+A fan-made sci-fi HUD for **Rokid Glasses (RG-glasses, Android 12)**. It tracks a face with the glasses' camera, runs a short scan sequence, and draws a translucent reticle over the view. It is a playful visual demo, not a person-identification or safety tool.
 
 **[Download the v0.7 APK](https://github.com/oldmelnick-afk/rokid-terminator-hud/releases/download/v0.7/rocket-terminator-hud-v0.7.apk)** · [Source ZIP](https://github.com/oldmelnick-afk/rokid-terminator-hud/releases/download/v0.7/rokid-terminator-hud-source-v0.7.zip) · [All releases](https://github.com/oldmelnick-afk/rokid-terminator-hud/releases)
 
