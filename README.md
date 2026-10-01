@@ -4,7 +4,7 @@ A fan-made sci-fi HUD for **Rokid Glasses**. It tracks a face with the glasses' 
 
 **[Download the v0.8 APK](https://github.com/oldmelnick-afk/rokid-terminator-hud/releases/download/v0.8/rocket-terminator-hud-v0.8.apk)** · [Source ZIP](https://github.com/oldmelnick-afk/rokid-terminator-hud/releases/download/v0.8/rokid-terminator-hud-source-v0.8.zip) · [All releases](https://github.com/oldmelnick-afk/rokid-terminator-hud/releases)
 
-![Concept visualization of the HUD over a generated person on a Moscow street](screenshot-moscow-concept.png)
+![Green HUD concept visualization over a generated person on a Moscow street](screenshot-moscow-concept-v0.8.png)
 
 *Concept visualization: the person and street scene were generated. The green HUD layout is based on a screen capture from the actual glasses. The dossiers shown are fictional.*
 
