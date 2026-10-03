@@ -539,7 +539,7 @@ class MainActivity : Activity() {
             }
             val battery = batteryPercent()
 
-            txt(canvas, "ROCKET / TERMINATOR", 18f, 27f, 19f, true)
+            txt(canvas, "ROKID / TERMINATOR", 18f, 27f, 19f, true)
             line(canvas, 18f, 38f, 462f, 38f, 145, 1f)
             txt(canvas, if (targetVisible) "TARGET 01" else "NO TARGET", 18f, 61f, 14f)
             txt(canvas, "BAT ${if (battery >= 0) "$battery%" else "--"}", 376f, 61f, 13f)

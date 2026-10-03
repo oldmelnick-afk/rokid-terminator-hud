@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Rocket Terminator HUD Preview"
+rootProject.name = "Rokid Terminator HUD Preview"
 include(":app")
